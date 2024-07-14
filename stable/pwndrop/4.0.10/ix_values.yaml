@@ -1,0 +1,29 @@
+image:
+  repository: tccr.io/truecharts/pwndrop
+  pullPolicy: IfNotPresent
+  tag: v1.0.1@sha256:b16a4c9bc9bb2b456fa61f0e40b85e28e3b7b937f20b154e6a7e5c0a9c47cacb
+
+securityContext:
+  runAsNonRoot: false
+  readOnlyRootFilesystem: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+service:
+  main:
+    ports:
+      main:
+        targetPort: 8080
+        port: 10149
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+  varrun:
+    enabled: true
+
+portal:
+  enabled: true

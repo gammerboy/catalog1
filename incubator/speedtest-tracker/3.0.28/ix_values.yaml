@@ -1,0 +1,48 @@
+image:
+  repository: tccr.io/truecharts/speedtest-tracker
+  tag: latest@sha256:c2ccb23dbc72bd05d49f6be3c9a2d6fb29d59b7bd055e29e82a9bfcb865fa64b
+  pullPolicy: IfNotPresent
+
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+env:
+  DB_CONNECTION: pgsql
+  DB_PORT: 5432
+  DB_DATABASE: "{{ .Values.postgresql.postgresqlDatabase }}"
+  DB_USERNAME: "{{ .Values.postgresql.postgresqlUsername }}"
+  DB_HOST:
+    secretKeyRef:
+      name: dbcreds
+      key: plainhost
+  DB_PASSWORD:
+    secretKeyRef:
+      name: dbcreds
+      key: postgresql-password
+
+service:
+  main:
+    ports:
+      main:
+        port: 8765
+        protocol: HTTPS
+        targetPort: 443
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /config
+
+postgresql:
+  enabled: true
+  existingSecret: dbcreds
+  postgresqlDatabase: speedtest_tracker
+  postgresqlUsername: speedtest_tracker
+
+portal:
+  enabled: true

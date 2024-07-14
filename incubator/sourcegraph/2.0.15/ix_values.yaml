@@ -1,0 +1,44 @@
+env: {}
+image:
+  pullPolicy: IfNotPresent
+  repository: tccr.io/truecharts/sourcegraph
+  tag: 4.4.2@sha256:600112183db92d095e0ec10b01f87acab6e84124ff1e2f05c9ee2d79326f2bcb
+persistence:
+  applicationdatastoragepath:
+    enabled: true
+    mountPath: /var/opt/sourcegraph
+  configstoragepath:
+    enabled: true
+    mountPath: /etc/sourcegraph
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+service:
+  adminconsolepo:
+    enabled: true
+    ports:
+      adminconsolepo:
+        enabled: true
+        port: 2633
+        protocol: TCP
+        targetPort: 2633
+  grafanaport:
+    enabled: true
+    ports:
+      grafanaport:
+        enabled: true
+        port: 3370
+        protocol: TCP
+        targetPort: 3370
+  main:
+    ports:
+      main:
+        port: 7080
+        protocol: HTTP
+        targetPort: 7080
+
+portal:
+  enabled: true

@@ -1,0 +1,38 @@
+image:
+  repository: tccr.io/truecharts/kavitaemail
+  pullPolicy: IfNotPresent
+  tag: 0.1.12@sha256:f55abc5fdf8ac3726ad2e8efdeb058d6a1efa771fe73ac88c4baed45f3f3c610
+
+securityContext:
+  runAsNonRoot: false
+  readOnlyRootFilesystem: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+secretEnv:
+  SMTP_USER: ""
+  SMTP_PASS: ""
+
+env:
+  DISP_NAME: kavita
+  SMTP_HOST: ""
+  SMTP_PORT: 587
+  SEND_ADDR: ""
+
+service:
+  main:
+    ports:
+      main:
+        protocol: HTTP
+        port: 15003
+        targetPort: 5003
+
+persistence:
+  config:
+    enabled: false
+    mountPath: /app/config
+
+portal:
+  enabled: false

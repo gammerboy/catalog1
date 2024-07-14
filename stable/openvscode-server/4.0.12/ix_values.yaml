@@ -1,0 +1,37 @@
+image:
+  repository: tccr.io/truecharts/openvscode-server
+  pullPolicy: IfNotPresent
+  tag: 1.75.1@sha256:7fe80a41d2d55f24bbb04efaecaba4b191d64465893b8449c3444ad7bf4d2673
+
+# portal:
+# path: "/?tkn={{ .Values.secret.CONNECTION_TOKEN }}"
+
+securityContext:
+  runAsNonRoot: false
+  readOnlyRootFilesystem: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+# secretEnv:
+#   CONNECTION_TOKEN: "somerandomstring"
+#   CONNECTION_SECRET: ""
+#   SUDO_PASSWORD: ""
+
+service:
+  main:
+    ports:
+      main:
+        targetPort: 3000
+        port: 10135
+
+persistence:
+  config:
+    enabled: true
+    mountPath: "/config"
+  varrun:
+    enabled: true
+
+portal:
+  enabled: true

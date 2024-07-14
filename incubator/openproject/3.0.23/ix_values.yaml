@@ -1,0 +1,43 @@
+image:
+  repository: tccr.io/truecharts/openproject
+  pullPolicy: IfNotPresent
+  tag: 12.4.3@sha256:6f68718f868d9c477340bcdc7c986fec82198318002dc7bd6e34fa11f97abe31
+
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+
+env:
+  SECRET_KEY_BASE:
+    secretKeyRef:
+      name: openproject-secrets
+      key: SECRET_KEY_BASE
+  DATABASE_URL:
+    secretKeyRef:
+      name: dbcreds
+      key: url-noql
+
+persistence:
+  assets:
+    enabled: true
+    mountPath: /var/openproject/assets
+
+service:
+  main:
+    ports:
+      main:
+        port: 10290
+        targetPort: 80
+
+postgresql:
+  enabled: true
+  existingSecret: "dbcreds"
+  postgresqlUsername: openproject
+  postgresqlDatabase: openproject
+
+portal:
+  enabled: true

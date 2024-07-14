@@ -1,0 +1,27 @@
+env:
+  DELUGE_RPC_HOSTNAME: ""
+  DELUGE_RPC_PASSWORD: ""
+  DELUGE_RPC_USERNAME: ""
+  DELUGE_RPC_VERSION: v2
+  STORM_API_KEY: ""
+image:
+  pullPolicy: IfNotPresent
+  repository: tccr.io/truecharts/storm
+  tag: latest@sha256:2b3046ed2c6e428c53693bb07c4da914f88980ed4cabbc0bfc534f3b79b4c935
+persistence: {}
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+service:
+  main:
+    ports:
+      main:
+        port: 8221
+        protocol: TCP
+        targetPort: 8221
+
+portal:
+  enabled: true

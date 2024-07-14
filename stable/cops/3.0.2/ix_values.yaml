@@ -1,0 +1,31 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: tccr.io/truecharts/cops
+  tag: latest@sha256:f00e9115b80009f9e172b94326a05e28ec7e00a1b302911b13114435ed2042c2
+
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+service:
+  main:
+    ports:
+      main:
+        port: 10609
+        protocol: HTTP
+        targetPort: 80
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /config
+  books:
+    enabled: true
+    mountPath: /books
+
+portal:
+  enabled: true

@@ -1,0 +1,31 @@
+image:
+  repository: tccr.io/truecharts/rflood
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:52fc5552f681284a33a462a36f97a94771fe20f3e94fca1ad679d12942f66c85
+
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+env:
+  FLOOD_AUTH: false
+
+service:
+  main:
+    ports:
+      main:
+        port: 3000
+        protocol: HTTP
+        targetPort: 3000
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /config
+
+portal:
+  enabled: true

@@ -1,0 +1,107 @@
+image:
+  repository: tccr.io/truecharts/neko-firefox
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:fb815e022fe2b99aa244495aa81cae81320f83915e5f5df3b8abfffa0b32baff
+
+braveImage:
+  repository: tccr.io/truecharts/neko-brave
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:07f7221e78ec7fd07f1fd4dacd58232a6285ac27a93ccad96f4c0b4b889dd45d
+
+chromeImage:
+  repository: tccr.io/truecharts/neko-chrome
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:55e77a8e2d1f67f99e4827ba166eb99bd1e64a7ad9c03e2eaf08efbddf5c883d
+
+chromiumImage:
+  repository: tccr.io/truecharts/neko-chromium
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:98578ffdc1a8519530575f2627aec4dd60c5940de18dd5b6fe72e5effa1e8642
+
+edgeImage:
+  repository: tccr.io/truecharts/neko-msedge
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:97503413c04538735f23ad36f5767100659e0c7622c614aa769e00cec9139fb1
+
+remminaImage:
+  repository: tccr.io/truecharts/neko-remmina
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:a2365d035779e13d07bc7f955a0c6e515abcd343c4058240a81cf5a5d629af7a
+
+torImage:
+  repository: tccr.io/truecharts/neko-tor
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:c24f64e7abc6efc60ed364ab568b3c61836daed9858674ed787cbb718a317831
+
+vivaldiImage:
+  repository: tccr.io/truecharts/neko-vivaldi
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:6d5775edabc40c28bcccace897ba39af2a6e96d501e3e1698cebc616bcb1baa5
+
+vlcImage:
+  repository: tccr.io/truecharts/neko-vlc
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:09d6c9dd05a51ba9770cf4e45f1e5359f6a4be0175753de508bab0908cc5d989
+
+vncviewerImage:
+  repository: tccr.io/truecharts/neko-vncviewer
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:9d6680979372ae561fd157cc973d8e73a826ccf68773314169d2d761564c184d
+
+xfceImage:
+  repository: tccr.io/truecharts/neko-xfce
+  pullPolicy: IfNotPresent
+  tag: latest@sha256:b37b67ec7f28d368d8916896c0238cd24d0dbd95d1f726f189ca63e3cd368ce0
+
+imageSelector: "image"
+
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+secretEnv:
+  NEKO_PASSWORD: userpass
+  NEKO_PASSWORD_ADMIN: adminpass
+
+env:
+  NEKO_UDPMUX: 52100
+  NEKO_TCPMUX: 52100
+  # User Defined
+  NEKO_SCREEN: 1920x1080@30
+  NEKO_CONTROL_PROTECTION: false
+  NEKO_IMPLICIT_CONTROL: false
+  NEKO_LOCKS: ""
+  NEKO_NAT1TO1: ""
+  NEKO_IPFETCH: ""
+  NEKO_PROXY: true
+
+service:
+  main:
+    ports:
+      main:
+        port: 10294
+        protocol: HTTP
+        targetPort: 8080
+  mux-udp:
+    enabled: true
+    ports:
+      mux-udp:
+        enabled: true
+        port: 52100
+        protocol: UDP
+        targetPort: 52100
+  mux-tcp:
+    enabled: true
+    ports:
+      mux-tcp:
+        enabled: true
+        port: 52100
+        protocol: TCP
+        targetPort: 52100
+
+portal:
+  enabled: true

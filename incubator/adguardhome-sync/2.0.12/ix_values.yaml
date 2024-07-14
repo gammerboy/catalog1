@@ -1,0 +1,27 @@
+env:
+  CONFIGFILE: ""
+  UMASK: ""
+image:
+  pullPolicy: IfNotPresent
+  repository: tccr.io/truecharts/adguardhome-sync
+  tag: latest@sha256:3e6c217bb0ddc2db1bf8278f7a758e1629866b3843579e68fdf0c42e780e1195
+persistence:
+  config:
+    enabled: true
+    mountPath: /config
+podSecurityContext:
+  runAsGroup: 0
+  runAsUser: 0
+securityContext:
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+service:
+  main:
+    ports:
+      main:
+        port: 8080
+        protocol: TCP
+        targetPort: 8080
+
+portal:
+  enabled: true
